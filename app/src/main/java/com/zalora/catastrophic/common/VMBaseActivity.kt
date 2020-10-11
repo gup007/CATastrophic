@@ -1,0 +1,47 @@
+package com.zalora.catastrophic.common
+
+import android.os.Bundle
+import android.widget.LinearLayout
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
+import com.zalora.catastrophic.dagger.CustomViewModelFactory
+import javax.inject.Inject
+
+abstract class VMBaseActivity<M : BaseViewModel, B : ViewDataBinding> : BaseActivity() {
+
+    @Inject
+    lateinit var abstractViewModelFactory: CustomViewModelFactory
+
+    protected abstract fun getViewModel(): Class<M>
+
+    protected abstract fun onCreate(instance: Bundle?, viewModel: M, binding: B)
+
+    @LayoutRes
+    protected abstract fun getLayoutResId(): Int
+
+    private lateinit var binding: B
+    override fun setChildContentView(
+        savedInstanceState: Bundle?,
+        mainContainer: LinearLayout,
+        addToParent: Boolean
+    ) {
+        binding = DataBindingUtil.inflate(
+            layoutInflater,
+            getLayoutResId(),
+            mainContainer,
+            addToParent
+        )
+    }
+
+    final override fun create(savedInstanceState: Bundle?) {
+//        val viewModel = ViewModelProvider(this, SavedStateViewModelFactory(application, this, Bundle()))[getViewModel()]
+        val bundle = Bundle()
+        bundle.putString("abc", "hello")
+        val factory = abstractViewModelFactory.create(this, bundle)
+        val viewModel = ViewModelProvider(this, factory).get(getViewModel())
+        viewModel.apiException.observe(this, onError)
+        onCreate(savedInstanceState, viewModel, binding)
+    }
+}

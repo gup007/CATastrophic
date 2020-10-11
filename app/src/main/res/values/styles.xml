@@ -1,10 +1,59 @@
 <resources>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ToolbarTheme">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="Bold">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="Regular">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="Bold.White.TextSize29" parent="Bold">
+        <item name="android:textColor">@color/text_color_header</item>
+        <item name="android:textSize">@dimen/text_size_29sp</item>
+    </style>
+
+    <style name="Bold.TextColor.TextSize29" parent="Bold">
+        <item name="android:textColor">@color/text_color_title</item>
+        <item name="android:textSize">@dimen/text_size_29sp</item>
+    </style>
+
+    <style name="Regular.TextColor.TextSize20" parent="Regular">
+        <item name="android:textColor">@color/text_color_title</item>
+        <item name="android:textSize">@dimen/text_size_20sp</item>
+    </style>
+
+    <style name="Bold.TextSize12" parent="Bold">
+        <item name="android:textColor">#bababa</item>
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+    </style>
+
+    <style name="Regular.TextSize14" parent="Regular">
+        <item name="android:textColor">#bababa</item>
+        <item name="android:textSize">@dimen/text_size_14sp</item>
+    </style>
+
+    <style name="TextNormalStyle">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
 </resources>
