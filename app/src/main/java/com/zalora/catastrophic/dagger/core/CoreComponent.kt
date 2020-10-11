@@ -1,12 +1,14 @@
 package com.zalora.catastrophic.dagger.core
 
 import android.content.Context
-import com.zalora.catastrophic.common.ResourceProvider
-import com.zalora.catastrophic.rest.CacheInterceptor
+import androidx.room.Room
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.zalora.catastrophic.R
+import com.zalora.catastrophic.common.ResourceProvider
+import com.zalora.catastrophic.home.room.AppDatabase
+import com.zalora.catastrophic.rest.CacheInterceptor
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
@@ -31,7 +33,7 @@ interface CoreComponent {
 
     val resourceProvider: ResourceProvider
     val retrofit: Retrofit
-//    val database: AppDatabase
+    val database: AppDatabase
 }
 
 @Module
@@ -51,11 +53,11 @@ class CoreModule {
         return ResourceProvider(context)
     }
 
-//    @Provides
-//    @CoreScope
-//    fun provideDatabase(context: Context): AppDatabase =
-//        Room.databaseBuilder(context, AppDatabase::class.java, "room.db")
-//            .build()
+    @Provides
+    @CoreScope
+    fun provideDatabase(context: Context): AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, "room.db")
+            .build()
 
     @Provides
     @CoreScope
