@@ -12,6 +12,6 @@ interface CatApi {
         @Query("limit") limit: Int,
         @Query("mime_types") mimeTypes: String,
         @Query("order") order: String
-    ): Call<CatListResponse>
+    ): Call<List<Cat>>
 
 }

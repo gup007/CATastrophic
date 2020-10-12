@@ -3,7 +3,7 @@ buildscript {
     ext.kotlin_version = "1.4.10"
 
     ext.names = [
-            'applicationId': 'com.byju.news'
+            'applicationId': 'com.zalora.catastrophic'
     ]
 
     ext.versions = [

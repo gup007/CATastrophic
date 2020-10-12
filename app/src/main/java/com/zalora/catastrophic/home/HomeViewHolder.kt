@@ -2,7 +2,7 @@ package com.zalora.catastrophic.home
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zalora.catastrophic.R
 import com.zalora.catastrophic.common.ImageCaching
@@ -10,18 +10,14 @@ import com.zalora.catastrophic.common.ImageCaching
 class HomeViewHolder(itemView: View) :
     BaseStoreViewHolder(itemView) {
 
-    private var tvNewsTitle: TextView = itemView.findViewById(R.id.tv_news_title)
-    private var tvNewsSource: TextView = itemView.findViewById(R.id.tv_news_source)
-    var ivNewsPic: ImageView = itemView.findViewById(R.id.iv_news_pic)
-
+    var ivCatPic: ImageView = itemView.findViewById(R.id.iv_cat_pic)
 
     override fun onBind(response: Cat) {
         super.onBind(response)
-        response.urlToImage?.let {
-            ImageCaching(itemView.context).load(it).into(ivNewsPic)
+        response.url?.let {
+            ViewCompat.setTransitionName(ivCatPic, response.id);
+            ImageCaching(itemView.context).load(it).into(ivCatPic)
         }
-        tvNewsTitle.text = response.title
-        tvNewsSource.text = response.author
     }
 }
 

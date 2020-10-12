@@ -9,7 +9,7 @@ import com.zalora.catastrophic.dagger.core.CoreComponent
 import com.zalora.catastrophic.dagger.core.DaggerCoreComponent
 
 
-class NewsApp : MultiDexApplication() {
+class CatApp : MultiDexApplication() {
 
     private lateinit var coreComponent: CoreComponent
 
@@ -33,8 +33,8 @@ class NewsApp : MultiDexApplication() {
     companion object {
         @JvmStatic
         fun coreComponent(context: Context) =
-            (context.applicationContext as NewsApp).coreComponent
+            (context.applicationContext as CatApp).coreComponent
     }
 }
 
-fun Activity.coreComponent() = NewsApp.coreComponent(this)
+fun Activity.coreComponent() = CatApp.coreComponent(this)

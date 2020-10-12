@@ -10,13 +10,13 @@ import com.zalora.catastrophic.rest.APIResponse
 class Cat() : APIResponse(), Parcelable {
 
     @PrimaryKey
-    var id: String? = null
+    var id: String = ""
     var url: String? = null
     var width: Int = 0
     var height: Int = 0
 
     constructor(parcel: Parcel) : this() {
-        id = parcel.readString()
+        id = parcel.readString()!!
         url = parcel.readString()
         width = parcel.readInt()
         height = parcel.readInt()

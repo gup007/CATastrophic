@@ -37,9 +37,7 @@ abstract class VMBaseActivity<M : BaseViewModel, B : ViewDataBinding> : BaseActi
 
     final override fun create(savedInstanceState: Bundle?) {
 //        val viewModel = ViewModelProvider(this, SavedStateViewModelFactory(application, this, Bundle()))[getViewModel()]
-        val bundle = Bundle()
-        bundle.putString("abc", "hello")
-        val factory = abstractViewModelFactory.create(this, bundle)
+        val factory = abstractViewModelFactory.create(this)
         val viewModel = ViewModelProvider(this, factory).get(getViewModel())
         viewModel.apiException.observe(this, onError)
         onCreate(savedInstanceState, viewModel, binding)

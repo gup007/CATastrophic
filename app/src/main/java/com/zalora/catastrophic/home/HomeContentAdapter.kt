@@ -17,7 +17,6 @@ class HomeContentAdapter(
     RecyclerView.Adapter<BaseStoreViewHolder>(),
     BaseViewModel.BindableAdapter<List<Cat>>, View.OnClickListener {
 
-    private var mExpandedPosition: Int = -1
     private var responseList: ArrayList<Cat> = ArrayList()
 
     init {
@@ -35,15 +34,14 @@ class HomeContentAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseStoreViewHolder {
         if (viewType == APIResponse.VIEW_TYPE_NORMAL) {
             val view = LayoutInflater.from(parent.context).inflate(
-                R.layout.view_news_item
-                , parent, false
+                R.layout.view_cat_item, parent, false
             )
             view.setOnClickListener(this)
             return HomeViewHolder(view)
         }
         return BaseStoreViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.view_news_item,
+                R.layout.view_cat_item,
                 parent,
                 false
             )
@@ -55,7 +53,7 @@ class HomeContentAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return responseList[position].getViewType()
+        return APIResponse.VIEW_TYPE_NORMAL
     }
 
     override fun onBindViewHolder(holder: BaseStoreViewHolder, position: Int) {
@@ -67,6 +65,6 @@ class HomeContentAdapter(
         if (childAdapterPosition < 0 || childAdapterPosition >= responseList.size) {
             return
         }
-        listener.onItemClick(responseList[childAdapterPosition])
+        listener.onItemClick(view, responseList[childAdapterPosition])
     }
 }

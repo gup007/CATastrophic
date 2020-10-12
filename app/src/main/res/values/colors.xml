@@ -10,7 +10,6 @@
     <color name="text_color_header">#ffffff</color>
     <color name="text_color_title">#f2f2f2</color>
     <color name="text_color_light_gray">#929292</color>
-    <color name="bg_home">#464646</color>
     <color name="theme_color_green">#31b057</color>
 
 </resources>

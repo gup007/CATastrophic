@@ -6,6 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.zalora.catastrophic.BuildConfig
 import com.zalora.catastrophic.dagger.ModuleScope
+import com.zalora.catastrophic.home.Cat
 import com.zalora.catastrophic.home.CatApi
 import com.zalora.catastrophic.home.CatListResponse
 import com.zalora.catastrophic.home.CatResponse
@@ -33,7 +34,7 @@ class CatRepoRestImpl @Inject constructor(
         mimeTypes: String,
         order: String
     ): LiveData<CatResponse> {
-        fetchNewsData(page, limit, mimeTypes, order)
+//        fetchNewsData(page, limit, mimeTypes, order)
         val databaseSource = database.newsDao().findAll()
         mediator.addSource(databaseSource) {
             mediator.postValue(CatResponse.Success(it))
@@ -48,13 +49,12 @@ class CatRepoRestImpl @Inject constructor(
                               limit: Int,
                               mimeTypes: String,
                               order: String) {
-        retrofit.create(CatApi::class.java)
-            .getCatsAsync(page, limit, mimeTypes, order)
-            .enqueue(object : APICallback<CatListResponse>() {
-                override fun onSuccess(response: CatListResponse, rawResponse: Response) {
+        retrofit.create(CatApi::class.java).getCatsAsync(page, limit, mimeTypes, order).enqueue(
+            object : APICallback<List<Cat>>(){
+                override fun onSuccess(response: List<Cat>, rawResponse: Response) {
                     GlobalScope.launch {
-                        if (response.articles != null) {
-                            database.newsDao().insertAll(response.articles!!)
+                        if (!response.isNullOrEmpty()) {
+                            database.newsDao().insertAll(response)
                         }
                     }
                 }
@@ -64,9 +64,9 @@ class CatRepoRestImpl @Inject constructor(
                 }
 
                 override fun onComplete() {
-
                 }
-            })
+            }
+        )
     }
 
 }

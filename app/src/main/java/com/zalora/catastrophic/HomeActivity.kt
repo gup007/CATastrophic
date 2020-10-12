@@ -16,7 +16,7 @@ class HomeActivity : VMBaseActivity<HomeViewModel, ActivityHomeBinding>() {
     }
 
     override fun getContainerId(): Int {
-        return binding.trandingRepoContainer.id
+        return binding.homeContainer.id
     }
 
     override fun onCreate(

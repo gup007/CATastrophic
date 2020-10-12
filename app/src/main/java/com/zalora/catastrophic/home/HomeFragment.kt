@@ -1,34 +1,37 @@
 package com.zalora.catastrophic.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import android.view.View
+import android.widget.ImageView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import com.zalora.catastrophic.DetailActivity
 import com.zalora.catastrophic.R
 import com.zalora.catastrophic.common.AdapterSpaceDecoration
 import com.zalora.catastrophic.common.BaseFragment
 import com.zalora.catastrophic.common.RecyclerItemClickListener
-import com.zalora.catastrophic.databinding.FragmentNewsBinding
+import com.zalora.catastrophic.databinding.FragmentHomeBinding
 
 
-class HomeFragment : BaseFragment<FragmentNewsBinding>(), RecyclerItemClickListener<Cat> {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), RecyclerItemClickListener<Cat> {
 
     private lateinit var viewModel: HomeViewModel
-    private lateinit var binding: FragmentNewsBinding
+    private lateinit var binding: FragmentHomeBinding
 
-    override fun onCreateView(instance: Bundle?, binding: FragmentNewsBinding) {
+    override fun onCreateView(instance: Bundle?, binding: FragmentHomeBinding) {
         val storeViewModel = getActivityViewModel(HomeViewModel::class.java)
         binding.viewModel = storeViewModel
         binding.lifecycleOwner = viewLifecycleOwner
         this.binding = binding
         viewModel = binding.viewModel!!
         initNewsList()
-        viewModel.fetchNewsList("bitcoin").observe(viewLifecycleOwner, Observer {
+        viewModel.fetchNewsList().observe(viewLifecycleOwner, {
             when (it) {
                 is CatResponse.Success -> {
-                    viewModel.newsList.postValue(it.newsData)
+                    viewModel.catList.postValue(it.catData)
                 }
                 is CatResponse.Error -> {
                     Log.d("TAG", it.error)
@@ -38,27 +41,30 @@ class HomeFragment : BaseFragment<FragmentNewsBinding>(), RecyclerItemClickListe
     }
 
     private fun initNewsList() {
-        val linearLayoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        binding.newsList.layoutManager = linearLayoutManager
-        val dividerItemDecoration = DividerItemDecoration(
-            context,
-            linearLayoutManager.orientation
-        )
-        val dimension: Float? = context?.resources?.getDimension(R.dimen.dimen_24dp)
+        val linearLayoutManager = GridLayoutManager(activity, 3)
+        binding.homeRecycler.layoutManager = linearLayoutManager
+        val dimension: Float? = context?.resources?.getDimension(R.dimen.dimen_4dp)
         dimension?.let {
-            binding.newsList.addItemDecoration(AdapterSpaceDecoration(dimension.toInt()))
+            binding.homeRecycler.addItemDecoration(AdapterSpaceDecoration(dimension.toInt()))
         }
-        binding.newsList.addItemDecoration(dividerItemDecoration)
-        binding.newsList.adapter = HomeContentAdapter(binding.newsList, this)
+        binding.homeRecycler.adapter = HomeContentAdapter(binding.homeRecycler, this)
     }
 
     override fun getLayoutResId(): Int {
-        return R.layout.fragment_news
+        return R.layout.fragment_home
     }
 
-    override fun onItemClick(news: Cat) {
-//        val intent = Intent(context, DetailActivity::class.java)
-//        intent.putExtra(DetailActivity.KEY_NEWS_DATA, news)
+    override fun onItemClick(view: View, cat: Cat) {
+        val imageView = view.findViewById<ImageView>(R.id.iv_cat_pic)
+        val intent = Intent(context, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.KEY_CAT_DATA, cat)
+
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+            activity!!,
+            imageView,
+            ViewCompat.getTransitionName(imageView)!!
+        )
+        startActivity(intent, options.toBundle())
 //        startActivity(intent)
     }
 }
