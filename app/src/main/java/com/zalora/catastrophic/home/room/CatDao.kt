@@ -13,7 +13,7 @@ interface CatDao {
     fun findAll(): PagingSource<Int, Cat>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(doggoModel: List<Cat>)
+    suspend fun insertAll(catModel: List<Cat>)
 
     @Query("DELETE FROM cat")
     suspend fun clearAllCat()

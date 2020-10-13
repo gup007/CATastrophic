@@ -105,7 +105,7 @@ class CatMediator(private var retrofit: Retrofit, private val appDatabase: AppDa
         return state.pages
             .lastOrNull { it.data.isNotEmpty() }
             ?.data?.lastOrNull()
-            ?.let { doggo -> appDatabase.getRepoDao().remoteKeysDoggoId(doggo.id) }
+            ?.let { cat -> appDatabase.getRepoDao().remoteKeysCatId(cat.id) }
     }
 
     /**
@@ -115,7 +115,7 @@ class CatMediator(private var retrofit: Retrofit, private val appDatabase: AppDa
         return state.pages
             .firstOrNull() { it.data.isNotEmpty() }
             ?.data?.firstOrNull()
-            ?.let { doggo -> appDatabase.getRepoDao().remoteKeysDoggoId(doggo.id) }
+            ?.let { cat -> appDatabase.getRepoDao().remoteKeysCatId(cat.id) }
     }
 
     /**
@@ -124,7 +124,7 @@ class CatMediator(private var retrofit: Retrofit, private val appDatabase: AppDa
     private suspend fun getClosestRemoteKey(state: PagingState<Int, Cat>): RemoteKeys? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { repoId ->
-                appDatabase.getRepoDao().remoteKeysDoggoId(repoId)
+                appDatabase.getRepoDao().remoteKeysCatId(repoId)
             }
         }
     }

@@ -3,6 +3,7 @@ package com.zalora.catastrophic
 import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
@@ -19,13 +20,14 @@ class DetailActivity : FragmentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             imageView.transitionName = cat?.id
         }
+        ActivityCompat.postponeEnterTransition(this);
         val callback = object : Callback {
             override fun onSuccess() {
-                supportStartPostponedEnterTransition()
+                ActivityCompat.startPostponedEnterTransition(this@DetailActivity)
             }
 
             override fun onError(e: Exception?) {
-                supportStartPostponedEnterTransition()
+                ActivityCompat.startPostponedEnterTransition(this@DetailActivity)
             }
         }
         Picasso.get().load(cat?.url!!).noFade().into(imageView, callback)
