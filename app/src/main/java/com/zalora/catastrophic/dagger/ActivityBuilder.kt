@@ -1,8 +1,6 @@
-package com.byju.news.dagger
+package com.zalora.catastrophic.dagger
 
 import com.zalora.catastrophic.HomeActivity
-import com.zalora.catastrophic.dagger.ActivityFragmentBuilder
-import com.zalora.catastrophic.dagger.ActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

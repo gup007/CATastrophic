@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.squareup.picasso.Picasso
 import com.zalora.catastrophic.rest.exception.APIException
 import com.zalora.catastrophic.R
 import javax.inject.Inject
@@ -47,9 +48,7 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
             if (imageUrl == null) {
                 return
             }
-            ImageCaching(view.context)
-                .load(imageUrl)
-                .placeholder(R.mipmap.ic_launcher).into(view)
+            Picasso.get().load(imageUrl).placeholder(R.mipmap.ic_launcher).into(view)
         }
 
         @JvmStatic

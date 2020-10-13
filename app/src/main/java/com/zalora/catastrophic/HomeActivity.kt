@@ -1,6 +1,7 @@
 package com.zalora.catastrophic
 
 import android.os.Bundle
+import androidx.paging.ExperimentalPagingApi
 import com.zalora.catastrophic.common.VMBaseActivity
 import com.zalora.catastrophic.databinding.ActivityHomeBinding
 import com.zalora.catastrophic.home.HomeViewModel
@@ -27,7 +28,6 @@ class HomeActivity : VMBaseActivity<HomeViewModel, ActivityHomeBinding>() {
         this.viewModel = viewModel
         this.binding = binding
         replaceFragment(HomeFragment(), false)
-
     }
 
     override fun getLayoutResId(): Int {

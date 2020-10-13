@@ -1,25 +1,21 @@
 package com.zalora.catastrophic.home.room
 
-import androidx.lifecycle.LiveData
-import androidx.room.*
-import com.zalora.catastrophic.home.Cat
+import androidx.paging.PagingSource
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 
 @Dao
 interface CatDao {
 
-    @Query("SELECT * FROM Cat")
-    fun findAll(): LiveData<List<Cat>>
+    @Query("SELECT * FROM cat")
+    fun findAll(): PagingSource<Int, Cat>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(newsList: List<Cat>): LongArray?
+    suspend fun insertAll(doggoModel: List<Cat>)
 
-    @Insert
-    fun insert(cat: Cat)
-
-    @Update
-    fun update(cat: Cat)
-
-    @Delete
-    fun delete(cat: Cat)
+    @Query("DELETE FROM cat")
+    suspend fun clearAllCat()
 
 }

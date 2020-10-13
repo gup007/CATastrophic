@@ -6,7 +6,7 @@ import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import com.zalora.catastrophic.home.Cat
+import com.zalora.catastrophic.home.room.Cat
 
 
 class DetailActivity : FragmentActivity() {

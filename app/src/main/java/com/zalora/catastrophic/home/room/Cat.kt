@@ -1,4 +1,4 @@
-package com.zalora.catastrophic.home
+package com.zalora.catastrophic.home.room
 
 import android.os.Parcel
 import android.os.Parcelable

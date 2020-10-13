@@ -1,6 +1,5 @@
 package com.zalora.catastrophic.dagger
 
-import com.byju.news.dagger.ActivityBuilder
 import com.zalora.catastrophic.dagger.core.CoreComponent
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule

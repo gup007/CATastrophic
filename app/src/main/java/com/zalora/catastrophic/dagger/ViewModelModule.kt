@@ -13,16 +13,6 @@ import dagger.multibindings.IntoMap
 @Module(includes = [AssistedInject_ViewModelModule::class])
 internal abstract class ViewModelModule {
 
-//    @Binds
-//    @IntoMap
-//    @ViewModelKey(HomeViewModel::class)
-//    abstract fun bindHomeViewModel(viewModel: HomeViewModel): ViewModel
-//
-//
-//    @Binds
-//    abstract fun bindViewModelFactory(factory: CustomViewModelFactory): ViewModelProvider.Factory
-
-
     @Binds
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
